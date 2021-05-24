@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     marginBottom: 10,
     background: "#ed1c24",
+    color: "white",
   },
   buttons: {
     marginTop: 50,
@@ -85,7 +86,7 @@ export default function Login() {
     setLoad(true);
     try {
       const { data } = await axios.post(
-        "https://smpl-user-auth.herokuapp.com/users/login",
+        "http://localhost:5000/users/login",
         formData
       );
       if (data.message) {
@@ -97,7 +98,7 @@ export default function Login() {
         }, 3000);
       } else {
         localStorage.setItem("profile", JSON.stringify(data));
-        history.push("/profile");
+        history.push("/upload");
       }
     } catch (error) {
       console.log(error);
@@ -113,7 +114,7 @@ export default function Login() {
   return (
     <>
       <Grow in>
-        <Container maxWidth="sm" style={{ marginTop: 60, marginBottom: 60 }}>
+        <Container maxWidth="sm" style={{ marginTop: 20, marginBottom: 60 }}>
           <div
             style={{
               display: "flex",
@@ -132,6 +133,12 @@ export default function Login() {
           </div>
           <Paper className={classes.paper}>
             <form autoComplete="off" className={classes.form} noValidate>
+              <Typography
+                style={{ textAlign: "center", marginBottom: 20 }}
+                variant="h4"
+              >
+                Login
+              </Typography>
               <div className={classes.textField}>
                 <TextField
                   {...register("email")}
